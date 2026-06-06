@@ -119,7 +119,7 @@ export default function Landing() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
-            className="max-w-5xl mx-auto relative rounded-2xl overflow-hidden shadow-2xl border border-primary/20 bg-black"
+            className="w-full relative rounded-2xl overflow-hidden shadow-2xl border border-primary/20 bg-black"
           >
             <video 
               src="/explainer.mp4" 
