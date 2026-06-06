@@ -1,9 +1,10 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Building2, Landmark, TrendingUp, ShieldCheck, ArrowRight, CheckCircle2, ChevronRight, Scale, Users, Globe2, Briefcase } from 'lucide-react';
+import { Building2, Landmark, TrendingUp, ShieldCheck, ArrowRight, CheckCircle2, ChevronRight, Scale, Users, Globe2, Briefcase, PlayCircle, MapPin } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import { Link } from 'wouter';
 
 // Images generated
 import londonSkyline from '../assets/images/london-skyline.png';
@@ -31,7 +32,7 @@ export default function Landing() {
         <div className="container mx-auto px-6 h-20 flex items-center justify-between">
           <div className="flex items-center gap-2">
             <Landmark className="w-8 h-8 text-primary" />
-            <span className="font-serif font-bold text-2xl tracking-tight">LandVest Capital</span>
+            <span className="font-serif font-bold text-2xl tracking-tight">Landsec Capital</span>
           </div>
           <div className="hidden md:flex items-center gap-8 font-medium text-sm">
             <a href="#about" className="hover:text-primary transition-colors">About Us</a>
@@ -40,8 +41,12 @@ export default function Landing() {
             <a href="#impact" className="hover:text-primary transition-colors">Our Impact</a>
           </div>
           <div className="flex items-center gap-4">
-            <Button variant="ghost" className="hidden sm:inline-flex">Log In</Button>
-            <Button>Invest Now</Button>
+            <Link href="/login">
+              <Button variant="ghost" className="hidden sm:inline-flex">Log In</Button>
+            </Link>
+            <Link href="/register">
+              <Button>Invest Now</Button>
+            </Link>
           </div>
         </div>
       </nav>
@@ -66,9 +71,11 @@ export default function Landing() {
                 Institutional-grade real estate investments for visionaries. Join a FTSE-caliber heritage trust managing £10B+ in prime urban assets.
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
-                <Button size="lg" className="h-14 px-8 text-lg font-semibold w-full sm:w-auto shadow-lg shadow-primary/20">
-                  Explore Plans <ArrowRight className="ml-2 w-5 h-5" />
-                </Button>
+                <Link href="/register">
+                  <Button size="lg" className="h-14 px-8 text-lg font-semibold w-full sm:w-auto shadow-lg shadow-primary/20">
+                    Explore Plans <ArrowRight className="ml-2 w-5 h-5" />
+                  </Button>
+                </Link>
                 <Button size="lg" variant="outline" className="h-14 px-8 text-lg font-semibold w-full sm:w-auto bg-background/50 backdrop-blur-sm border-border">
                   Request Prospectus
                 </Button>
@@ -97,6 +104,35 @@ export default function Landing() {
         </div>
       </section>
 
+      {/* Explainer Video Section */}
+      <section className="py-24 bg-gradient-to-b from-background to-secondary/30 relative">
+        <div className="container mx-auto px-6">
+          <div className="text-center max-w-3xl mx-auto mb-16">
+            <h2 className="font-serif text-4xl md:text-5xl font-bold mb-6">See How Landsec Capital Works</h2>
+            <p className="text-lg text-foreground/80">
+              Watch our short overview to understand how we generate returns for our investors through prime UK real estate.
+            </p>
+          </div>
+          
+          <motion.div 
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+            className="max-w-5xl mx-auto relative rounded-2xl overflow-hidden shadow-2xl border border-primary/20 bg-black"
+          >
+            <video 
+              src="/explainer.mp4" 
+              controls 
+              className="w-full aspect-video object-cover"
+              poster={officeInterior}
+            >
+              Your browser does not support the video tag.
+            </video>
+          </motion.div>
+        </div>
+      </section>
+
       {/* About / Heritage */}
       <section id="about" className="py-24 bg-background">
         <div className="container mx-auto px-6">
@@ -105,7 +141,7 @@ export default function Landing() {
               <h2 className="font-serif text-4xl md:text-5xl font-bold mb-6">A Legacy of <br/>Architectural Excellence</h2>
               <div className="w-20 h-1.5 bg-primary mb-8 rounded-full" />
               <p className="text-lg text-foreground/80 mb-6 leading-relaxed">
-                Founded over 80 years ago, LandVest Capital stands as a pillar of the UK real estate market. Headquartered in London, we possess a FTSE-caliber heritage built on foresight, stability, and unyielding standards.
+                Founded over 80 years ago, Landsec Capital stands as a pillar of the UK real estate market. Headquartered in London, we possess a FTSE-caliber heritage built on foresight, stability, and unyielding standards.
               </p>
               <p className="text-lg text-foreground/80 mb-8 leading-relaxed">
                 As a regulated UK REIT, we offer tax-efficient, income-distributing investment vehicles backed by physical, prime assets. From Piccadilly-area cornerstones to destination retail developments rivaling Bluewater, our portfolio defines the modern urban landscape.
@@ -215,7 +251,9 @@ export default function Landing() {
                   </ul>
                 </CardContent>
                 <CardFooter>
-                  <Button className="w-full" variant="outline">Select Plan</Button>
+                  <Link href="/register" className="w-full">
+                    <Button className="w-full" variant="outline">Select Plan</Button>
+                  </Link>
                 </CardFooter>
               </Card>
             </motion.div>
@@ -255,7 +293,9 @@ export default function Landing() {
                   </ul>
                 </CardContent>
                 <CardFooter className="bg-primary/5 pb-6">
-                  <Button className="w-full">Select Plan</Button>
+                  <Link href="/register" className="w-full">
+                    <Button className="w-full">Select Plan</Button>
+                  </Link>
                 </CardFooter>
               </Card>
             </motion.div>
@@ -292,7 +332,9 @@ export default function Landing() {
                   </ul>
                 </CardContent>
                 <CardFooter>
-                  <Button className="w-full" variant="outline">Select Plan</Button>
+                  <Link href="/register" className="w-full">
+                    <Button className="w-full" variant="outline">Select Plan</Button>
+                  </Link>
                 </CardFooter>
               </Card>
             </motion.div>
@@ -329,7 +371,9 @@ export default function Landing() {
                   </ul>
                 </CardContent>
                 <CardFooter>
-                  <Button className="w-full bg-white text-foreground hover:bg-white/90">Contact Advisors</Button>
+                  <Link href="/register" className="w-full">
+                    <Button className="w-full bg-white text-foreground hover:bg-white/90">Contact Advisors</Button>
+                  </Link>
                 </CardFooter>
               </Card>
             </motion.div>
@@ -359,7 +403,7 @@ export default function Landing() {
                 <h2 className="font-serif text-3xl md:text-4xl font-bold">Uncompromising Governance</h2>
               </div>
               <p className="text-lg text-foreground/80 mb-8 leading-relaxed">
-                Institutional-grade investing requires institutional-grade oversight. LandVest Capital operates under the strict regulatory framework of a UK Real Estate Investment Trust (REIT), ensuring maximum transparency and tax efficiency for our partners.
+                Institutional-grade investing requires institutional-grade oversight. Landsec Capital operates under the strict regulatory framework of a UK Real Estate Investment Trust (REIT), ensuring maximum transparency and tax efficiency for our partners.
               </p>
               <div className="space-y-6">
                 <div className="flex gap-4">
@@ -386,15 +430,17 @@ export default function Landing() {
       <section className="py-24 bg-primary text-primary-foreground text-center relative overflow-hidden">
         <div className="absolute inset-0 bg-black/5 mix-blend-multiply" />
         <div className="container relative z-10 mx-auto px-6 max-w-4xl">
-          <h2 className="font-serif text-4xl md:text-6xl font-bold mb-8 text-black">Ready to build your legacy?</h2>
-          <p className="text-xl md:text-2xl mb-10 text-black/80 font-medium">
+          <h2 className="font-serif text-4xl md:text-6xl font-bold mb-8 text-white">Ready to build your legacy?</h2>
+          <p className="text-xl md:text-2xl mb-10 text-white/90 font-medium">
             Join the ranks of discerning investors participating in the future of the UK's most valuable real estate.
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-4">
-            <Button size="lg" variant="default" className="bg-black text-white hover:bg-black/80 h-14 px-8 text-lg">
-              Open an Account
-            </Button>
-            <Button size="lg" variant="outline" className="border-black text-black hover:bg-black hover:text-white h-14 px-8 text-lg">
+            <Link href="/register">
+              <Button size="lg" variant="default" className="bg-black text-white hover:bg-black/80 h-14 px-8 text-lg w-full sm:w-auto">
+                Open an Account
+              </Button>
+            </Link>
+            <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-black h-14 px-8 text-lg w-full sm:w-auto">
               Schedule a Consultation
             </Button>
           </div>
@@ -408,37 +454,41 @@ export default function Landing() {
             <div className="md:col-span-2">
               <div className="flex items-center gap-2 mb-6">
                 <Landmark className="w-8 h-8 text-primary" />
-                <span className="font-serif font-bold text-2xl text-white tracking-tight">LandVest Capital</span>
+                <span className="font-serif font-bold text-2xl text-white tracking-tight">Landsec Capital</span>
               </div>
-              <p className="max-w-md text-sm leading-relaxed">
+              <p className="max-w-md text-sm leading-relaxed mb-4">
                 A premier UK-based real estate investment trust (REIT) owning, developing, and managing major urban property assets across London and key UK cities. Regulated, transparent, and built for generational wealth.
               </p>
+              <div className="flex items-start gap-2 text-sm">
+                <MapPin className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
+                <span>100 Victoria Street, London SW1E 5JL, United Kingdom</span>
+              </div>
             </div>
             <div>
               <h4 className="font-bold text-white mb-4">Investments</h4>
               <ul className="space-y-2 text-sm">
-                <li><a href="#" className="hover:text-primary transition-colors">Foundation Plan</a></li>
-                <li><a href="#" className="hover:text-primary transition-colors">Growth Plan</a></li>
-                <li><a href="#" className="hover:text-primary transition-colors">Premier Plan</a></li>
-                <li><a href="#" className="hover:text-primary transition-colors">Institutional</a></li>
+                <li><a href="#plans" className="hover:text-primary transition-colors">Foundation Plan</a></li>
+                <li><a href="#plans" className="hover:text-primary transition-colors">Growth Plan</a></li>
+                <li><a href="#plans" className="hover:text-primary transition-colors">Premier Plan</a></li>
+                <li><a href="#plans" className="hover:text-primary transition-colors">Institutional Plan</a></li>
               </ul>
             </div>
             <div>
-              <h4 className="font-bold text-white mb-4">Corporate</h4>
+              <h4 className="font-bold text-white mb-4">Company</h4>
               <ul className="space-y-2 text-sm">
-                <li><a href="#" className="hover:text-primary transition-colors">About Us</a></li>
-                <li><a href="#" className="hover:text-primary transition-colors">Our Portfolio</a></li>
-                <li><a href="#" className="hover:text-primary transition-colors">Investor Relations</a></li>
-                <li><a href="#" className="hover:text-primary transition-colors">Contact</a></li>
+                <li><a href="#about" className="hover:text-primary transition-colors">About Us</a></li>
+                <li><a href="#portfolio" className="hover:text-primary transition-colors">Our Portfolio</a></li>
+                <li><a href="#" className="hover:text-primary transition-colors">News & Insights</a></li>
+                <li><a href="#" className="hover:text-primary transition-colors">Contact Support</a></li>
               </ul>
             </div>
           </div>
-          <div className="pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4 text-xs">
-            <p>&copy; {new Date().getFullYear()} LandVest Capital REIT. All rights reserved.</p>
-            <div className="flex gap-4">
-              <a href="#" className="hover:text-white transition-colors">Terms of Service</a>
+          <div className="flex flex-col md:flex-row items-center justify-between pt-8 border-t border-white/10 text-xs">
+            <p>&copy; {new Date().getFullYear()} Landsec Capital. All rights reserved. Landsec Capital is a trading name.</p>
+            <div className="flex gap-6 mt-4 md:mt-0">
               <a href="#" className="hover:text-white transition-colors">Privacy Policy</a>
-              <a href="#" className="hover:text-white transition-colors">Regulatory Information</a>
+              <a href="#" className="hover:text-white transition-colors">Terms of Service</a>
+              <a href="#" className="hover:text-white transition-colors">Risk Disclosure</a>
             </div>
           </div>
         </div>
