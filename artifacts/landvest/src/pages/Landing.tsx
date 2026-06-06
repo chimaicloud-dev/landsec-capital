@@ -35,7 +35,7 @@ export default function Landing() {
             <span className="font-serif font-bold text-2xl tracking-tight">Landsec Capital</span>
           </div>
           <div className="hidden md:flex items-center gap-8 font-medium text-sm">
-            <a href="#about" className="hover:text-primary transition-colors">About Us</a>
+            <Link href="/about" className="hover:text-primary transition-colors">About Us</Link>
             <a href="#portfolio" className="hover:text-primary transition-colors">Portfolio</a>
             <a href="#plans" className="hover:text-primary transition-colors">Investment Plans</a>
             <a href="#impact" className="hover:text-primary transition-colors">Our Impact</a>
@@ -68,7 +68,7 @@ export default function Landing() {
                 Invest in the Foundation of <span className="text-primary">Tomorrow's London</span>
               </h1>
               <p className="text-xl md:text-2xl text-foreground/80 mb-10 leading-relaxed font-light">
-                Institutional-grade real estate investments for visionaries. Join a FTSE-caliber heritage trust managing £10B+ in prime urban assets.
+                Institutional-grade real estate investments for visionaries. Join a FTSE-caliber heritage trust managing $10B+ in prime urban assets.
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
                 <Link href="/register">
@@ -90,7 +90,7 @@ export default function Landing() {
         <div className="container mx-auto px-6">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12">
             {[
-              { label: "Assets Under Management", value: "£10B+" },
+              { label: "Assets Under Management", value: "$10B+" },
               { label: "Portfolio Occupancy", value: "97%" },
               { label: "Years of Heritage", value: "80+" },
               { label: "Active Developments", value: "50+" },
@@ -233,7 +233,7 @@ export default function Landing() {
                   <div className="space-y-4 mb-6">
                     <div className="flex justify-between items-center text-sm">
                       <span className="text-muted-foreground">Min. Investment</span>
-                      <span className="font-semibold">£5,000</span>
+                      <span className="font-semibold">$5,000</span>
                     </div>
                     <div className="flex justify-between items-center text-sm">
                       <span className="text-muted-foreground">Term Length</span>
@@ -275,7 +275,7 @@ export default function Landing() {
                   <div className="space-y-4 mb-6">
                     <div className="flex justify-between items-center text-sm">
                       <span className="text-muted-foreground">Min. Investment</span>
-                      <span className="font-semibold">£25,000</span>
+                      <span className="font-semibold">$25,000</span>
                     </div>
                     <div className="flex justify-between items-center text-sm">
                       <span className="text-muted-foreground">Term Length</span>
@@ -314,7 +314,7 @@ export default function Landing() {
                   <div className="space-y-4 mb-6">
                     <div className="flex justify-between items-center text-sm">
                       <span className="text-muted-foreground">Min. Investment</span>
-                      <span className="font-semibold">£100,000</span>
+                      <span className="font-semibold">$100,000</span>
                     </div>
                     <div className="flex justify-between items-center text-sm">
                       <span className="text-muted-foreground">Term Length</span>
@@ -353,7 +353,7 @@ export default function Landing() {
                   <div className="space-y-4 mb-6 text-background/90">
                     <div className="flex justify-between items-center text-sm">
                       <span className="text-background/60">Min. Investment</span>
-                      <span className="font-semibold text-white">£500,000+</span>
+                      <span className="font-semibold text-white">$500,000+</span>
                     </div>
                     <div className="flex justify-between items-center text-sm">
                       <span className="text-background/60">Term Length</span>
@@ -486,9 +486,9 @@ export default function Landing() {
           <div className="flex flex-col md:flex-row items-center justify-between pt-8 border-t border-white/10 text-xs">
             <p>&copy; {new Date().getFullYear()} Landsec Capital. All rights reserved. Landsec Capital is a trading name.</p>
             <div className="flex gap-6 mt-4 md:mt-0">
-              <a href="#" className="hover:text-white transition-colors">Privacy Policy</a>
-              <a href="#" className="hover:text-white transition-colors">Terms of Service</a>
-              <a href="#" className="hover:text-white transition-colors">Risk Disclosure</a>
+              <Link href="/terms" className="hover:text-white transition-colors">Privacy Policy</Link>
+              <Link href="/terms" className="hover:text-white transition-colors">Terms of Service</Link>
+              <Link href="/terms" className="hover:text-white transition-colors">Risk Disclosure</Link>
             </div>
           </div>
         </div>

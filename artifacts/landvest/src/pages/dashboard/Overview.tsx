@@ -24,10 +24,10 @@ const chartData = [
 ];
 
 const recentActivities = [
-  { id: 1, type: 'Credit', desc: 'Q4 Dividend Payment', amount: '+£120.00', date: '2 days ago', status: 'Completed' },
-  { id: 2, type: 'Investment', desc: 'Foundation Plan Allocation', amount: '£5,000.00', date: '1 month ago', status: 'Completed' },
-  { id: 3, type: 'Fee', desc: 'Account Setup Fee', amount: '-£25.00', date: '1 month ago', status: 'Completed' },
-  { id: 4, type: 'Deposit', desc: 'Bank Transfer (Barclays)', amount: '+£5,025.00', date: '1 month ago', status: 'Completed' },
+  { id: 1, type: 'Credit', desc: 'Q4 Dividend Payment', amount: '+$120.00', date: '2 days ago', status: 'Completed' },
+  { id: 2, type: 'Investment', desc: 'Foundation Plan Allocation', amount: '$5,000.00', date: '1 month ago', status: 'Completed' },
+  { id: 3, type: 'Fee', desc: 'Account Setup Fee', amount: '-$25.00', date: '1 month ago', status: 'Completed' },
+  { id: 4, type: 'Deposit', desc: 'Bank Transfer (Barclays)', amount: '+$5,025.00', date: '1 month ago', status: 'Completed' },
 ];
 
 export default function Overview() {
@@ -58,7 +58,7 @@ export default function Overview() {
               </div>
               <Badge variant="outline" className="text-xs bg-background">Total Invested</Badge>
             </div>
-            <h3 className="text-3xl font-bold font-serif mb-1">£{investedAmount.toLocaleString()}</h3>
+            <h3 className="text-3xl font-bold font-serif mb-1">${investedAmount.toLocaleString()}</h3>
             <p className="text-sm text-muted-foreground">Initial principal</p>
           </CardContent>
         </Card>
@@ -73,7 +73,7 @@ export default function Overview() {
                 <ArrowUpRight className="w-3 h-3 mr-1" /> 8.0%
               </span>
             </div>
-            <h3 className="text-3xl font-bold font-serif mb-1">£{currentValue.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</h3>
+            <h3 className="text-3xl font-bold font-serif mb-1">${currentValue.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</h3>
             <p className="text-sm text-primary font-medium">Current portfolio value</p>
           </CardContent>
         </Card>
@@ -122,11 +122,11 @@ export default function Overview() {
                   </defs>
                   <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="hsl(var(--border))" />
                   <XAxis dataKey="month" axisLine={false} tickLine={false} tick={{ fontSize: 12, fill: 'hsl(var(--muted-foreground))' }} dy={10} />
-                  <YAxis axisLine={false} tickLine={false} tick={{ fontSize: 12, fill: 'hsl(var(--muted-foreground))' }} tickFormatter={(val) => `£${val}`} dx={-10} />
+                  <YAxis axisLine={false} tickLine={false} tick={{ fontSize: 12, fill: 'hsl(var(--muted-foreground))' }} tickFormatter={(val) => `$${val}`} dx={-10} />
                   <Tooltip 
                     contentStyle={{ backgroundColor: 'hsl(var(--card))', borderRadius: '8px', border: '1px solid hsl(var(--border))' }}
                     itemStyle={{ color: 'hsl(var(--foreground))', fontWeight: 'bold' }}
-                    formatter={(value: number) => [`£${value}`, 'Value']}
+                    formatter={(value: number) => [`$${value}`, 'Value']}
                   />
                   <Area type="monotone" dataKey="value" stroke="hsl(var(--primary))" strokeWidth={3} fillOpacity={1} fill="url(#colorValue)" />
                 </AreaChart>

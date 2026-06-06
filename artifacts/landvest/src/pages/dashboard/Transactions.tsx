@@ -100,7 +100,7 @@ export default function Transactions() {
                       <TableCell className="font-semibold">{trx.desc}</TableCell>
                       <TableCell className="text-xs text-muted-foreground">{trx.id}</TableCell>
                       <TableCell className={`text-right font-bold ${trx.type === 'Credit' ? 'text-green-600' : 'text-foreground'}`}>
-                        {trx.type === 'Credit' ? '+' : '-'}£{trx.amount.toFixed(2)}
+                        {trx.type === 'Credit' ? '+' : '-'}${trx.amount.toFixed(2)}
                       </TableCell>
                       <TableCell className="text-right">
                         <Badge variant="outline" className={

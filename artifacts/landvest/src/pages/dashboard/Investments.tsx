@@ -116,7 +116,7 @@ export default function Investments() {
                   <div className="space-y-3 mb-6">
                     <div className="flex justify-between items-center text-sm">
                       <span className="text-muted-foreground">Min. Investment</span>
-                      <span className="font-semibold">{typeof plan.minInvestment === 'number' ? `£${plan.minInvestment.toLocaleString()}` : plan.minInvestment}</span>
+                      <span className="font-semibold">{typeof plan.minInvestment === 'number' ? `$${plan.minInvestment.toLocaleString()}` : plan.minInvestment}</span>
                     </div>
                     <div className="flex justify-between items-center text-sm">
                       <span className="text-muted-foreground">Term Length</span>
@@ -161,7 +161,7 @@ export default function Investments() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="space-y-6">
               <div className="space-y-2">
-                <Label htmlFor="amount">Initial Investment Amount (£)</Label>
+                <Label htmlFor="amount">Initial Investment Amount ($)</Label>
                 <Input 
                   id="amount" 
                   type="number" 
@@ -197,10 +197,10 @@ export default function Investments() {
                   <Card key={year} className="bg-card shadow-sm border-border/50 text-center flex flex-col justify-center py-6">
                     <h4 className="text-sm font-semibold text-muted-foreground mb-4">Year {year} Projection</h4>
                     <div className="text-2xl font-serif font-bold text-foreground mb-2">
-                      £{projectedValue.toLocaleString(undefined, { maximumFractionDigits: 0 })}
+                      ${projectedValue.toLocaleString(undefined, { maximumFractionDigits: 0 })}
                     </div>
                     <div className="text-sm font-medium text-green-600">
-                      +£{totalProfit.toLocaleString(undefined, { maximumFractionDigits: 0 })} Profit
+                      +${totalProfit.toLocaleString(undefined, { maximumFractionDigits: 0 })} Profit
                     </div>
                   </Card>
                 );

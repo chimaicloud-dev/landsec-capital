@@ -6,6 +6,8 @@ import { AuthProvider, useAuth } from "@/context/AuthContext";
 import Landing from "@/pages/Landing";
 import Login from "@/pages/Login";
 import Register from "@/pages/Register";
+import About from "@/pages/About";
+import Terms from "@/pages/Terms";
 import DashboardLayout from "@/components/DashboardLayout";
 import Overview from "@/pages/dashboard/Overview";
 import Investments from "@/pages/dashboard/Investments";
@@ -13,6 +15,7 @@ import Transactions from "@/pages/dashboard/Transactions";
 import Documents from "@/pages/dashboard/Documents";
 import Profile from "@/pages/dashboard/Profile";
 import Support from "@/pages/dashboard/Support";
+import Deposit from "@/pages/dashboard/Deposit";
 import NotFound from "@/pages/not-found";
 
 const queryClient = new QueryClient();
@@ -40,6 +43,8 @@ function Router() {
   return (
     <Switch>
       <Route path="/" component={Landing} />
+      <Route path="/about" component={About} />
+      <Route path="/terms" component={Terms} />
       <Route path="/login" component={Login} />
       <Route path="/register" component={Register} />
       
@@ -60,6 +65,7 @@ function Router() {
       <ProtectedRoute path="/dashboard/documents" component={Documents} />
       <ProtectedRoute path="/dashboard/profile" component={Profile} />
       <ProtectedRoute path="/dashboard/support" component={Support} />
+      <ProtectedRoute path="/dashboard/deposit" component={Deposit} />
       
       <Route component={NotFound} />
     </Switch>
