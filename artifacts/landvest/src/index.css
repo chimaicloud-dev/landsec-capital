@@ -67,51 +67,51 @@
   --radius-xl: calc(var(--radius) + 4px);
 }
 
-/* LIGHT MODE */
+/* DARK MODE (default) */
 :root {
-  --button-outline: rgba(0,0,0, .10);
-  --badge-outline: rgba(0,0,0, .05);
+  --button-outline: rgba(255,255,255, .10);
+  --badge-outline: rgba(255,255,255, .05);
 
   /* Automatic computation of border around primary / danger buttons */
-  --opaque-button-border-intensity: -8; /* In terms of percentages */
+  --opaque-button-border-intensity: 9; /* In terms of percentages */
 
   /* Backgrounds applied on top of other backgrounds when hovered/active */
-  --elevate-1: rgba(0,0,0, .03);
-  --elevate-2: rgba(0,0,0, .08);
+  --elevate-1: rgba(255,255,255, .04);
+  --elevate-2: rgba(255,255,255, .09);
 
-  --background: 0 0% 100%;
-  --foreground: 220 20% 8%;
-  --card: 218 30% 97%;
-  --card-foreground: 220 20% 8%;
-  --card-border: 218 20% 88%;
-  --border: 218 20% 88%;
-  --input: 218 20% 82%;
-  --ring: 217 91% 50%;
-  --primary: 217 91% 50%;
+  --background: 222 47% 6%;
+  --foreground: 210 40% 95%;
+  --card: 222 40% 9%;
+  --card-foreground: 210 40% 95%;
+  --card-border: 220 30% 16%;
+  --border: 220 30% 16%;
+  --input: 220 30% 18%;
+  --ring: 217 91% 55%;
+  --primary: 217 91% 55%;
   --primary-foreground: 0 0% 100%;
-  --secondary: 218 25% 95%;
-  --secondary-foreground: 220 20% 15%;
-  --muted: 218 25% 95%;
-  --muted-foreground: 220 10% 45%;
-  --accent: 217 91% 50%;
+  --secondary: 222 35% 14%;
+  --secondary-foreground: 210 40% 90%;
+  --muted: 222 35% 14%;
+  --muted-foreground: 210 20% 60%;
+  --accent: 217 91% 55%;
   --accent-foreground: 0 0% 100%;
   --destructive: 0 84% 60%;
   --destructive-foreground: 0 0% 100%;
-  --popover: 0 0% 100%;
-  --popover-foreground: 220 20% 8%;
-  --popover-border: 218 20% 88%;
-  --sidebar: 220 25% 8%;
-  --sidebar-foreground: 0 0% 95%;
-  --sidebar-border: 220 20% 15%;
+  --popover: 222 40% 9%;
+  --popover-foreground: 210 40% 95%;
+  --popover-border: 220 30% 16%;
+  --sidebar: 222 47% 5%;
+  --sidebar-foreground: 210 40% 90%;
+  --sidebar-border: 220 30% 12%;
   --sidebar-primary: 217 91% 55%;
   --sidebar-primary-foreground: 0 0% 100%;
-  --sidebar-accent: 220 20% 14%;
-  --sidebar-accent-foreground: 0 0% 90%;
-  --sidebar-ring: 217 91% 50%;
-  --chart-1: 217 91% 50%;
-  --chart-2: 220 20% 25%;
+  --sidebar-accent: 220 35% 12%;
+  --sidebar-accent-foreground: 210 40% 90%;
+  --sidebar-ring: 217 91% 55%;
+  --chart-1: 217 91% 55%;
+  --chart-2: 210 40% 40%;
   --chart-3: 217 70% 70%;
-  --chart-4: 220 15% 55%;
+  --chart-4: 210 20% 55%;
   --chart-5: 217 91% 35%;
 
   --app-font-sans: 'Inter', sans-serif;
