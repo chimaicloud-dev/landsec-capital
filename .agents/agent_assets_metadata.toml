@@ -1,0 +1,14 @@
+uploads = []
+outputs = []
+
+[[generated]]
+id = "vmCdAEAwnXD3gPVEHDLKf"
+uri = "file://artifacts/landvest/src/assets/images/london-skyline.png"
+type = "image"
+title = "London skyline dusk"
+
+[[generated]]
+id = "fP2fxyzeIKpmmVgsK3I-s"
+uri = "file://artifacts/landvest/src/assets/images/office-interior.png"
+type = "image"
+title = "Premium office interior"

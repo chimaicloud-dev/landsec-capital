@@ -1,0 +1,448 @@
+import React from 'react';
+import { motion } from 'framer-motion';
+import { Building2, Landmark, TrendingUp, ShieldCheck, ArrowRight, CheckCircle2, ChevronRight, Scale, Users, Globe2, Briefcase } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
+
+// Images generated
+import londonSkyline from '../assets/images/london-skyline.png';
+import officeInterior from '../assets/images/office-interior.png';
+
+const fadeIn = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
+};
+
+const staggerContainer = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: { staggerChildren: 0.2 }
+  }
+};
+
+export default function Landing() {
+  return (
+    <div className="min-h-screen bg-background text-foreground font-sans">
+      
+      {/* Navigation */}
+      <nav className="fixed top-0 left-0 right-0 z-50 bg-background/90 backdrop-blur-md border-b border-border">
+        <div className="container mx-auto px-6 h-20 flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <Landmark className="w-8 h-8 text-primary" />
+            <span className="font-serif font-bold text-2xl tracking-tight">LandVest Capital</span>
+          </div>
+          <div className="hidden md:flex items-center gap-8 font-medium text-sm">
+            <a href="#about" className="hover:text-primary transition-colors">About Us</a>
+            <a href="#portfolio" className="hover:text-primary transition-colors">Portfolio</a>
+            <a href="#plans" className="hover:text-primary transition-colors">Investment Plans</a>
+            <a href="#impact" className="hover:text-primary transition-colors">Our Impact</a>
+          </div>
+          <div className="flex items-center gap-4">
+            <Button variant="ghost" className="hidden sm:inline-flex">Log In</Button>
+            <Button>Invest Now</Button>
+          </div>
+        </div>
+      </nav>
+
+      {/* Hero Section */}
+      <section className="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden">
+        <div className="absolute inset-0 z-0">
+          <div className="absolute inset-0 bg-gradient-to-r from-background via-background/90 to-background/20 z-10" />
+          <img src={londonSkyline} alt="London Skyline" className="w-full h-full object-cover object-center" />
+        </div>
+        
+        <div className="container relative z-20 mx-auto px-6">
+          <div className="max-w-3xl">
+            <motion.div initial="hidden" animate="visible" variants={fadeIn}>
+              <Badge className="mb-6 bg-primary/20 text-primary-foreground hover:bg-primary/30 border-primary/30 py-1.5 px-4 text-sm font-semibold tracking-wide uppercase">
+                Premier UK REIT
+              </Badge>
+              <h1 className="font-serif text-5xl md:text-7xl font-bold leading-tight mb-6">
+                Invest in the Foundation of <span className="text-primary">Tomorrow's London</span>
+              </h1>
+              <p className="text-xl md:text-2xl text-foreground/80 mb-10 leading-relaxed font-light">
+                Institutional-grade real estate investments for visionaries. Join a FTSE-caliber heritage trust managing £10B+ in prime urban assets.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4">
+                <Button size="lg" className="h-14 px-8 text-lg font-semibold w-full sm:w-auto shadow-lg shadow-primary/20">
+                  Explore Plans <ArrowRight className="ml-2 w-5 h-5" />
+                </Button>
+                <Button size="lg" variant="outline" className="h-14 px-8 text-lg font-semibold w-full sm:w-auto bg-background/50 backdrop-blur-sm border-border">
+                  Request Prospectus
+                </Button>
+              </div>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* Stats Banner */}
+      <section className="bg-foreground text-background py-16">
+        <div className="container mx-auto px-6">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12">
+            {[
+              { label: "Assets Under Management", value: "£10B+" },
+              { label: "Portfolio Occupancy", value: "97%" },
+              { label: "Years of Heritage", value: "80+" },
+              { label: "Active Developments", value: "50+" },
+            ].map((stat, i) => (
+              <div key={i} className="flex flex-col items-start border-l border-primary/30 pl-6">
+                <span className="font-serif text-4xl md:text-5xl font-bold text-primary mb-2">{stat.value}</span>
+                <span className="text-sm md:text-base font-medium text-background/70 uppercase tracking-wider">{stat.label}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* About / Heritage */}
+      <section id="about" className="py-24 bg-background">
+        <div className="container mx-auto px-6">
+          <div className="grid lg:grid-cols-2 gap-16 items-center">
+            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={fadeIn}>
+              <h2 className="font-serif text-4xl md:text-5xl font-bold mb-6">A Legacy of <br/>Architectural Excellence</h2>
+              <div className="w-20 h-1.5 bg-primary mb-8 rounded-full" />
+              <p className="text-lg text-foreground/80 mb-6 leading-relaxed">
+                Founded over 80 years ago, LandVest Capital stands as a pillar of the UK real estate market. Headquartered in London, we possess a FTSE-caliber heritage built on foresight, stability, and unyielding standards.
+              </p>
+              <p className="text-lg text-foreground/80 mb-8 leading-relaxed">
+                As a regulated UK REIT, we offer tax-efficient, income-distributing investment vehicles backed by physical, prime assets. From Piccadilly-area cornerstones to destination retail developments rivaling Bluewater, our portfolio defines the modern urban landscape.
+              </p>
+              <ul className="space-y-4">
+                {[
+                  "Regulated & Tax-Efficient UK REIT",
+                  "Consistent Income Distributions",
+                  "Deep London Market Expertise"
+                ].map((item, i) => (
+                  <li key={i} className="flex items-center gap-3 font-medium">
+                    <CheckCircle2 className="text-primary w-6 h-6 flex-shrink-0" />
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </motion.div>
+            <motion.div 
+              className="relative h-[600px] rounded-2xl overflow-hidden shadow-2xl"
+              initial={{ opacity: 0, scale: 0.95 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+            >
+              <img src={officeInterior} alt="Premium Office Interior" className="w-full h-full object-cover" />
+              <div className="absolute inset-0 border border-primary/20 rounded-2xl pointer-events-none" />
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* Portfolio Focus / Approach */}
+      <section id="portfolio" className="py-24 bg-foreground text-background">
+        <div className="container mx-auto px-6">
+          <div className="text-center max-w-3xl mx-auto mb-16">
+            <h2 className="font-serif text-4xl md:text-5xl font-bold mb-6 text-white">Strategic Asset Allocation</h2>
+            <p className="text-lg text-background/70">Our acquisition and development strategy targets four core pillars of the UK urban economy.</p>
+          </div>
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {[
+              { icon: Briefcase, title: "Prime Office", desc: "Grade-A corporate spaces in Zone 1 London and major regional hubs." },
+              { icon: Globe2, title: "Destination Retail", desc: "High-footfall flagship retail assets including Bluewater-class centers." },
+              { icon: Building2, title: "Mixed-Use Urban", desc: "Transformative regeneration projects creating self-sustaining neighborhoods." },
+              { icon: Users, title: "Residential Pipeline", desc: "High-yield build-to-rent developments addressing the UK housing deficit." }
+            ].map((pillar, i) => (
+              <motion.div 
+                key={i}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.1, duration: 0.5 }}
+                className="bg-card/5 border border-white/10 p-8 rounded-xl hover:bg-card/10 transition-colors"
+              >
+                <pillar.icon className="w-10 h-10 text-primary mb-6" />
+                <h3 className="font-serif text-xl font-bold text-white mb-3">{pillar.title}</h3>
+                <p className="text-sm text-background/60 leading-relaxed">{pillar.desc}</p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Investment Plans */}
+      <section id="plans" className="py-24 bg-secondary border-y border-border">
+        <div className="container mx-auto px-6">
+          <div className="text-center max-w-3xl mx-auto mb-16">
+            <h2 className="font-serif text-4xl md:text-5xl font-bold mb-6">Investment Pathways</h2>
+            <p className="text-lg text-foreground/70">Structured opportunities for discerning investors. Choose the plan that aligns with your capital objectives and timeline.</p>
+          </div>
+
+          <motion.div 
+            className="grid md:grid-cols-2 lg:grid-cols-4 gap-8"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-100px" }}
+            variants={staggerContainer}
+          >
+            {/* Plan 1 */}
+            <motion.div variants={fadeIn}>
+              <Card className="h-full flex flex-col hover:border-primary/50 transition-colors">
+                <CardHeader>
+                  <h3 className="font-serif text-2xl font-bold">Foundation Plan</h3>
+                  <div className="mt-4 pb-4 border-b border-border">
+                    <span className="text-4xl font-bold text-primary">8%</span>
+                    <span className="text-sm font-medium text-muted-foreground ml-2">Annual Return</span>
+                  </div>
+                </CardHeader>
+                <CardContent className="flex-grow">
+                  <div className="space-y-4 mb-6">
+                    <div className="flex justify-between items-center text-sm">
+                      <span className="text-muted-foreground">Min. Investment</span>
+                      <span className="font-semibold">£5,000</span>
+                    </div>
+                    <div className="flex justify-between items-center text-sm">
+                      <span className="text-muted-foreground">Term Length</span>
+                      <span className="font-semibold">12 Months</span>
+                    </div>
+                    <div className="flex justify-between items-center text-sm">
+                      <span className="text-muted-foreground">Focus Area</span>
+                      <span className="font-semibold text-right">Residential & Mixed-use</span>
+                    </div>
+                  </div>
+                  <ul className="space-y-3 text-sm text-foreground/80">
+                    <li className="flex items-start gap-2"><CheckCircle2 className="w-4 h-4 text-primary mt-0.5" /> Core stable assets</li>
+                    <li className="flex items-start gap-2"><CheckCircle2 className="w-4 h-4 text-primary mt-0.5" /> Quarterly distributions</li>
+                    <li className="flex items-start gap-2"><CheckCircle2 className="w-4 h-4 text-primary mt-0.5" /> Accessible entry point</li>
+                  </ul>
+                </CardContent>
+                <CardFooter>
+                  <Button className="w-full" variant="outline">Select Plan</Button>
+                </CardFooter>
+              </Card>
+            </motion.div>
+
+            {/* Plan 2 */}
+            <motion.div variants={fadeIn}>
+              <Card className="h-full flex flex-col border-primary shadow-xl shadow-primary/10 relative overflow-hidden">
+                <div className="absolute top-0 right-0 bg-primary text-primary-foreground text-xs font-bold px-3 py-1 rounded-bl-lg uppercase tracking-wider">
+                  Most Popular
+                </div>
+                <CardHeader className="bg-primary/5">
+                  <h3 className="font-serif text-2xl font-bold">Growth Plan</h3>
+                  <div className="mt-4 pb-4 border-b border-primary/20">
+                    <span className="text-4xl font-bold text-primary">12%</span>
+                    <span className="text-sm font-medium text-muted-foreground ml-2">Annual Return</span>
+                  </div>
+                </CardHeader>
+                <CardContent className="flex-grow bg-primary/5 pt-6">
+                  <div className="space-y-4 mb-6">
+                    <div className="flex justify-between items-center text-sm">
+                      <span className="text-muted-foreground">Min. Investment</span>
+                      <span className="font-semibold">£25,000</span>
+                    </div>
+                    <div className="flex justify-between items-center text-sm">
+                      <span className="text-muted-foreground">Term Length</span>
+                      <span className="font-semibold">24 Months</span>
+                    </div>
+                    <div className="flex justify-between items-center text-sm">
+                      <span className="text-muted-foreground">Focus Area</span>
+                      <span className="font-semibold text-right">Premium Office & Retail</span>
+                    </div>
+                  </div>
+                  <ul className="space-y-3 text-sm text-foreground/80">
+                    <li className="flex items-start gap-2"><CheckCircle2 className="w-4 h-4 text-primary mt-0.5" /> High-yield commercial</li>
+                    <li className="flex items-start gap-2"><CheckCircle2 className="w-4 h-4 text-primary mt-0.5" /> Central London focus</li>
+                    <li className="flex items-start gap-2"><CheckCircle2 className="w-4 h-4 text-primary mt-0.5" /> Priority liquidity options</li>
+                  </ul>
+                </CardContent>
+                <CardFooter className="bg-primary/5 pb-6">
+                  <Button className="w-full">Select Plan</Button>
+                </CardFooter>
+              </Card>
+            </motion.div>
+
+            {/* Plan 3 */}
+            <motion.div variants={fadeIn}>
+              <Card className="h-full flex flex-col hover:border-primary/50 transition-colors">
+                <CardHeader>
+                  <h3 className="font-serif text-2xl font-bold">Premier Plan</h3>
+                  <div className="mt-4 pb-4 border-b border-border">
+                    <span className="text-4xl font-bold text-primary">16%</span>
+                    <span className="text-sm font-medium text-muted-foreground ml-2">Annual Return</span>
+                  </div>
+                </CardHeader>
+                <CardContent className="flex-grow">
+                  <div className="space-y-4 mb-6">
+                    <div className="flex justify-between items-center text-sm">
+                      <span className="text-muted-foreground">Min. Investment</span>
+                      <span className="font-semibold">£100,000</span>
+                    </div>
+                    <div className="flex justify-between items-center text-sm">
+                      <span className="text-muted-foreground">Term Length</span>
+                      <span className="font-semibold">36 Months</span>
+                    </div>
+                    <div className="flex justify-between items-center text-sm">
+                      <span className="text-muted-foreground">Focus Area</span>
+                      <span className="font-semibold text-right">Iconic Urban Regeneration</span>
+                    </div>
+                  </div>
+                  <ul className="space-y-3 text-sm text-foreground/80">
+                    <li className="flex items-start gap-2"><CheckCircle2 className="w-4 h-4 text-primary mt-0.5" /> Landmark developments</li>
+                    <li className="flex items-start gap-2"><CheckCircle2 className="w-4 h-4 text-primary mt-0.5" /> Capital appreciation focus</li>
+                    <li className="flex items-start gap-2"><CheckCircle2 className="w-4 h-4 text-primary mt-0.5" /> Dedicated relationship manager</li>
+                  </ul>
+                </CardContent>
+                <CardFooter>
+                  <Button className="w-full" variant="outline">Select Plan</Button>
+                </CardFooter>
+              </Card>
+            </motion.div>
+
+            {/* Plan 4 */}
+            <motion.div variants={fadeIn}>
+              <Card className="h-full flex flex-col bg-foreground text-background border-none">
+                <CardHeader>
+                  <h3 className="font-serif text-2xl font-bold text-white">Institutional Plan</h3>
+                  <div className="mt-4 pb-4 border-b border-background/20">
+                    <span className="text-4xl font-bold text-primary">Custom</span>
+                    <span className="text-sm font-medium text-background/60 ml-2">Return Profile</span>
+                  </div>
+                </CardHeader>
+                <CardContent className="flex-grow">
+                  <div className="space-y-4 mb-6 text-background/90">
+                    <div className="flex justify-between items-center text-sm">
+                      <span className="text-background/60">Min. Investment</span>
+                      <span className="font-semibold text-white">£500,000+</span>
+                    </div>
+                    <div className="flex justify-between items-center text-sm">
+                      <span className="text-background/60">Term Length</span>
+                      <span className="font-semibold text-white">Flexible</span>
+                    </div>
+                    <div className="flex justify-between items-center text-sm">
+                      <span className="text-background/60">Focus Area</span>
+                      <span className="font-semibold text-white text-right">Portfolio Co-investment</span>
+                    </div>
+                  </div>
+                  <ul className="space-y-3 text-sm text-background/80">
+                    <li className="flex items-start gap-2"><CheckCircle2 className="w-4 h-4 text-primary mt-0.5" /> Bespoke advisory services</li>
+                    <li className="flex items-start gap-2"><CheckCircle2 className="w-4 h-4 text-primary mt-0.5" /> Direct board access</li>
+                    <li className="flex items-start gap-2"><CheckCircle2 className="w-4 h-4 text-primary mt-0.5" /> Tailored risk structuring</li>
+                  </ul>
+                </CardContent>
+                <CardFooter>
+                  <Button className="w-full bg-white text-foreground hover:bg-white/90">Contact Advisors</Button>
+                </CardFooter>
+              </Card>
+            </motion.div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Security & Trust Section */}
+      <section id="impact" className="py-24 bg-background border-t border-border">
+        <div className="container mx-auto px-6">
+          <div className="grid lg:grid-cols-2 gap-16 items-center">
+            <motion.div 
+              className="order-2 lg:order-1 relative rounded-2xl overflow-hidden shadow-2xl"
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+            >
+              <div className="aspect-[4/3] bg-muted flex items-center justify-center">
+                <img src={londonSkyline} alt="London Architecture" className="w-full h-full object-cover saturate-0 opacity-80 mix-blend-multiply" />
+                <div className="absolute inset-0 bg-primary/10 mix-blend-overlay" />
+              </div>
+            </motion.div>
+            <motion.div className="order-1 lg:order-2" initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeIn}>
+              <div className="flex items-center gap-3 mb-6">
+                <ShieldCheck className="w-8 h-8 text-primary" />
+                <h2 className="font-serif text-3xl md:text-4xl font-bold">Uncompromising Governance</h2>
+              </div>
+              <p className="text-lg text-foreground/80 mb-8 leading-relaxed">
+                Institutional-grade investing requires institutional-grade oversight. LandVest Capital operates under the strict regulatory framework of a UK Real Estate Investment Trust (REIT), ensuring maximum transparency and tax efficiency for our partners.
+              </p>
+              <div className="space-y-6">
+                <div className="flex gap-4">
+                  <Scale className="w-6 h-6 text-primary flex-shrink-0" />
+                  <div>
+                    <h4 className="font-bold mb-1">FCA Regulated Structure</h4>
+                    <p className="text-sm text-foreground/70">Adhering to the highest standards of financial conduct and reporting.</p>
+                  </div>
+                </div>
+                <div className="flex gap-4">
+                  <TrendingUp className="w-6 h-6 text-primary flex-shrink-0" />
+                  <div>
+                    <h4 className="font-bold mb-1">Mandatory Income Distribution</h4>
+                    <p className="text-sm text-foreground/70">By law, 90% of property rental income is distributed to shareholders annually.</p>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="py-24 bg-primary text-primary-foreground text-center relative overflow-hidden">
+        <div className="absolute inset-0 bg-black/5 mix-blend-multiply" />
+        <div className="container relative z-10 mx-auto px-6 max-w-4xl">
+          <h2 className="font-serif text-4xl md:text-6xl font-bold mb-8 text-black">Ready to build your legacy?</h2>
+          <p className="text-xl md:text-2xl mb-10 text-black/80 font-medium">
+            Join the ranks of discerning investors participating in the future of the UK's most valuable real estate.
+          </p>
+          <div className="flex flex-col sm:flex-row justify-center gap-4">
+            <Button size="lg" variant="default" className="bg-black text-white hover:bg-black/80 h-14 px-8 text-lg">
+              Open an Account
+            </Button>
+            <Button size="lg" variant="outline" className="border-black text-black hover:bg-black hover:text-white h-14 px-8 text-lg">
+              Schedule a Consultation
+            </Button>
+          </div>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="bg-foreground text-background/60 py-16 border-t border-white/10">
+        <div className="container mx-auto px-6">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
+            <div className="md:col-span-2">
+              <div className="flex items-center gap-2 mb-6">
+                <Landmark className="w-8 h-8 text-primary" />
+                <span className="font-serif font-bold text-2xl text-white tracking-tight">LandVest Capital</span>
+              </div>
+              <p className="max-w-md text-sm leading-relaxed">
+                A premier UK-based real estate investment trust (REIT) owning, developing, and managing major urban property assets across London and key UK cities. Regulated, transparent, and built for generational wealth.
+              </p>
+            </div>
+            <div>
+              <h4 className="font-bold text-white mb-4">Investments</h4>
+              <ul className="space-y-2 text-sm">
+                <li><a href="#" className="hover:text-primary transition-colors">Foundation Plan</a></li>
+                <li><a href="#" className="hover:text-primary transition-colors">Growth Plan</a></li>
+                <li><a href="#" className="hover:text-primary transition-colors">Premier Plan</a></li>
+                <li><a href="#" className="hover:text-primary transition-colors">Institutional</a></li>
+              </ul>
+            </div>
+            <div>
+              <h4 className="font-bold text-white mb-4">Corporate</h4>
+              <ul className="space-y-2 text-sm">
+                <li><a href="#" className="hover:text-primary transition-colors">About Us</a></li>
+                <li><a href="#" className="hover:text-primary transition-colors">Our Portfolio</a></li>
+                <li><a href="#" className="hover:text-primary transition-colors">Investor Relations</a></li>
+                <li><a href="#" className="hover:text-primary transition-colors">Contact</a></li>
+              </ul>
+            </div>
+          </div>
+          <div className="pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4 text-xs">
+            <p>&copy; {new Date().getFullYear()} LandVest Capital REIT. All rights reserved.</p>
+            <div className="flex gap-4">
+              <a href="#" className="hover:text-white transition-colors">Terms of Service</a>
+              <a href="#" className="hover:text-white transition-colors">Privacy Policy</a>
+              <a href="#" className="hover:text-white transition-colors">Regulatory Information</a>
+            </div>
+          </div>
+        </div>
+      </footer>
+    </div>
+  );
+}
