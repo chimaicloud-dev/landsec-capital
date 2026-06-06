@@ -110,7 +110,7 @@ export default function Register() {
                 <Input
                   id="name"
                   data-testid="input-name"
-                  placeholder="John Doe"
+                  placeholder=""
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                 />
@@ -121,7 +121,7 @@ export default function Register() {
                   id="email"
                   data-testid="input-email"
                   type="email"
-                  placeholder="investor@example.com"
+                  placeholder=""
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                 />

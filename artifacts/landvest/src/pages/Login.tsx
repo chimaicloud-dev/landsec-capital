@@ -55,7 +55,7 @@ export default function Login() {
                 <Input 
                   id="email" 
                   type="email" 
-                  placeholder="investor@example.com" 
+                  placeholder="" 
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   className="bg-background"
@@ -72,7 +72,7 @@ export default function Login() {
                   <Input 
                     id="password" 
                     type={showPassword ? "text" : "password"} 
-                    placeholder="••••••••"
+                    placeholder=""
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     className="bg-background pr-10"
