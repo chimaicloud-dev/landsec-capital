@@ -16,6 +16,7 @@ import Documents from "@/pages/dashboard/Documents";
 import Profile from "@/pages/dashboard/Profile";
 import Support from "@/pages/dashboard/Support";
 import Deposit from "@/pages/dashboard/Deposit";
+import KYC from "@/pages/dashboard/KYC";
 import NotFound from "@/pages/not-found";
 
 const queryClient = new QueryClient();
@@ -66,6 +67,7 @@ function Router() {
       <ProtectedRoute path="/dashboard/profile" component={Profile} />
       <ProtectedRoute path="/dashboard/support" component={Support} />
       <ProtectedRoute path="/dashboard/deposit" component={Deposit} />
+      <ProtectedRoute path="/dashboard/kyc" component={KYC} />
       
       <Route component={NotFound} />
     </Switch>
