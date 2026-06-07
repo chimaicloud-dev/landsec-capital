@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { Landmark, FileText, Shield, AlertTriangle, Cookie, ChevronRight } from 'lucide-react';
+import { Landmark, FileText, Shield, Cookie, ChevronRight } from 'lucide-react';
 import { Link } from 'wouter';
 import { Button } from '@/components/ui/button';
 
@@ -63,33 +63,6 @@ const sections = [
       {
         heading: '6. Contact DPO',
         body: 'For privacy-related inquiries, please email dpo@landseccapital.com.',
-      },
-    ],
-  },
-  {
-    id: 'risk',
-    label: 'Risk Disclosure',
-    icon: AlertTriangle,
-    content: [
-      {
-        heading: '1. Capital at Risk',
-        body: 'Investing in real estate involves risk. The value of your investment can go down as well as up, and you may get back less than you invested. Your capital is at risk.',
-      },
-      {
-        heading: '2. Past Performance',
-        body: 'Past performance is not a reliable indicator of future results. Projected yields are targets based on historical data and market analysis, but they are not guaranteed.',
-      },
-      {
-        heading: '3. Illiquidity Risk',
-        body: 'Real estate is inherently an illiquid asset class. While we endeavor to provide liquidity according to plan terms, there may be periods where withdrawals are delayed due to market conditions.',
-      },
-      {
-        heading: '4. Property Market Risk',
-        body: 'Returns are dependent on the UK commercial and residential property markets. Factors such as economic downturns, changes in interest rates, and shifts in demand can negatively impact asset valuations and rental income.',
-      },
-      {
-        heading: '5. Regulatory Risk',
-        body: 'Changes in UK law, tax regulations, or FCA policies could affect the operation of Landsec Capital or the net returns delivered to investors.',
       },
     ],
   },

@@ -133,6 +133,101 @@ export default function Landing() {
         </div>
       </section>
 
+      {/* Video Guide — How It Works */}
+      <section className="py-24 bg-secondary/20">
+        <div className="container mx-auto px-6">
+          <div className="text-center max-w-3xl mx-auto mb-16">
+            <Badge className="mb-4 bg-primary/20 text-primary border-primary/30 py-1 px-4 text-xs font-semibold tracking-widest uppercase">Step-by-Step Guide</Badge>
+            <h2 className="font-serif text-4xl md:text-5xl font-bold mb-4">How to Get Started</h2>
+            <p className="text-foreground/70 text-lg">Follow the guide below — from registration to your first return.</p>
+          </div>
+
+          <div className="grid lg:grid-cols-2 gap-12 items-start">
+            {/* Steps */}
+            <div className="space-y-4">
+              {[
+                {
+                  step: '01',
+                  title: 'Create Your Account',
+                  desc: 'Register in under 2 minutes. Enter your name, email, choose an investment plan, and set a secure password.',
+                  icon: Users,
+                },
+                {
+                  step: '02',
+                  title: 'Verify Your Identity (KYC)',
+                  desc: 'Complete our quick identity check — submit a government-issued ID and proof of address. Verification is typically instant.',
+                  icon: ShieldCheck,
+                },
+                {
+                  step: '03',
+                  title: 'Add Funds & Invest',
+                  desc: 'Deposit via cryptocurrency (BTC, ETH, USDT, USDC) or bank wire. Funds are credited automatically once your transaction confirms.',
+                  icon: Briefcase,
+                },
+                {
+                  step: '04',
+                  title: 'Withdraw Your Returns',
+                  desc: 'Request a withdrawal from your dashboard at any time. Returns are paid quarterly to your nominated account or crypto wallet.',
+                  icon: TrendingUp,
+                },
+              ].map(({ step, title, desc, icon: Icon }, i) => (
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: i * 0.1 }}
+                  className="flex gap-5 p-5 rounded-xl border border-border/50 bg-card hover:border-primary/30 transition-colors"
+                >
+                  <div className="flex-shrink-0">
+                    <div className="w-12 h-12 rounded-xl bg-primary/15 flex items-center justify-center">
+                      <Icon className="w-5 h-5 text-primary" />
+                    </div>
+                  </div>
+                  <div className="flex-1">
+                    <div className="flex items-center gap-2 mb-1">
+                      <span className="text-xs font-bold text-primary tracking-widest">STEP {step}</span>
+                    </div>
+                    <h3 className="font-serif font-bold text-lg mb-1">{title}</h3>
+                    <p className="text-sm text-muted-foreground leading-relaxed">{desc}</p>
+                  </div>
+                </motion.div>
+              ))}
+
+              <div className="pt-2">
+                <Link href="/register">
+                  <Button size="lg" className="w-full sm:w-auto h-12 px-8 font-semibold">
+                    Get Started Now <ArrowRight className="ml-2 w-4 h-4" />
+                  </Button>
+                </Link>
+              </div>
+            </div>
+
+            {/* Video */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.7 }}
+              className="sticky top-28 rounded-2xl overflow-hidden border border-primary/20 shadow-2xl bg-black"
+            >
+              <div className="bg-secondary/30 px-5 py-3 flex items-center gap-2 border-b border-border/50">
+                <PlayCircle className="w-4 h-4 text-primary" />
+                <span className="text-sm font-semibold">Full Investor Guide</span>
+              </div>
+              <video
+                src="/explainer.mp4"
+                controls
+                className="w-full aspect-video object-cover"
+                poster={officeInterior}
+              >
+                Your browser does not support the video tag.
+              </video>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
       {/* About / Heritage */}
       <section id="about" className="py-24 bg-background">
         <div className="container mx-auto px-6">
@@ -484,11 +579,11 @@ export default function Landing() {
             </div>
           </div>
           <div className="flex flex-col md:flex-row items-center justify-between pt-8 border-t border-white/10 text-xs">
-            <p>&copy; {new Date().getFullYear()} Landsec Capital. All rights reserved. Landsec Capital is a trading name.</p>
+            <p>&copy; 2026 Landsec Capital. All rights reserved.</p>
             <div className="flex gap-6 mt-4 md:mt-0">
+              <Link href="/about" className="hover:text-white transition-colors">About Us</Link>
               <Link href="/terms" className="hover:text-white transition-colors">Privacy Policy</Link>
               <Link href="/terms" className="hover:text-white transition-colors">Terms of Service</Link>
-              <Link href="/terms" className="hover:text-white transition-colors">Risk Disclosure</Link>
             </div>
           </div>
         </div>

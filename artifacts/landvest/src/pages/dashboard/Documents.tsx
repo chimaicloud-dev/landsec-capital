@@ -13,7 +13,6 @@ const mockDocuments = [
   { id: 5, name: 'Certificate of Investment - Foundation', date: 'May 01, 2024', size: '0.8 MB', category: 'certificates', icon: FileCheck },
   { id: 6, name: 'Certificate of Investment - Additional', date: 'Mar 01, 2026', size: '0.8 MB', category: 'certificates', icon: FileCheck },
   { id: 7, name: 'Terms and Conditions (v2.1)', date: 'Jan 01, 2026', size: '3.5 MB', category: 'legal', icon: Shield },
-  { id: 8, name: 'Investment Risk Disclosure', date: 'May 01, 2024', size: '1.5 MB', category: 'legal', icon: Shield },
 ];
 
 export default function Documents() {

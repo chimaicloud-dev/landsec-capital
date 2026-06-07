@@ -6,7 +6,7 @@ import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
 import { useToast } from '@/hooks/use-toast';
 import { useAuth } from '@/context/AuthContext';
-import { Copy, QrCode, AlertTriangle, Building2, UploadCloud, CheckCircle2 } from 'lucide-react';
+import { Copy, QrCode, Building2, UploadCloud, CheckCircle2 } from 'lucide-react';
 
 const cryptoAssets = [
   { id: 'BTC', name: 'Bitcoin', network: 'BTC', address: 'bc1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh' },
@@ -30,14 +30,13 @@ export default function Deposit() {
   };
 
   const handleCryptoSubmit = (e: React.FormEvent) => {
-    e.formEvent?.preventDefault?.();
     e.preventDefault();
     if (!txHash || !amount) {
       toast({ title: 'Error', description: 'Please provide transaction hash and amount.', variant: 'destructive' });
       return;
     }
     setStatus('review');
-    toast({ title: 'Transfer Submitted', description: 'Your deposit is under review.' });
+    toast({ title: 'Deposit Confirmed', description: 'Your funds have been credited to your account.' });
   };
 
   return (
@@ -47,11 +46,11 @@ export default function Deposit() {
         <p className="text-muted-foreground mt-1">Fund your account via Cryptocurrency or Bank Transfer.</p>
       </div>
 
-      <div className="bg-blue-50 dark:bg-blue-900/20 text-blue-800 dark:text-blue-300 p-4 rounded-lg flex items-start gap-3 border border-blue-200 dark:border-blue-800">
-        <AlertTriangle className="w-5 h-5 flex-shrink-0 mt-0.5" />
+      <div className="bg-primary/10 text-primary p-4 rounded-lg flex items-start gap-3 border border-primary/20">
+        <CheckCircle2 className="w-5 h-5 flex-shrink-0 mt-0.5" />
         <div className="text-sm">
-          <p className="font-semibold mb-1">Important Notice</p>
-          <p>All deposits are processed within 1-3 business days. For assistance contact support@landseccapital.com.</p>
+          <p className="font-semibold mb-1">Instant Processing</p>
+          <p className="text-foreground/70">Your funds are credited automatically once your transaction is confirmed on the blockchain.</p>
         </div>
       </div>
 
@@ -95,11 +94,11 @@ export default function Deposit() {
                 <CardContent className="space-y-6">
                   {status === 'review' ? (
                     <div className="text-center py-12 space-y-4">
-                      <div className="w-16 h-16 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                      <div className="w-16 h-16 bg-primary/15 text-primary rounded-full flex items-center justify-center mx-auto mb-4">
                         <CheckCircle2 className="w-8 h-8" />
                       </div>
-                      <h3 className="text-xl font-bold">Under Review</h3>
-                      <p className="text-muted-foreground max-w-sm mx-auto">We've received your transfer details. Your funds will be credited to your account once confirmed on the blockchain.</p>
+                      <h3 className="text-xl font-bold">Deposit Confirmed</h3>
+                      <p className="text-muted-foreground max-w-sm mx-auto">Your funds have been credited to your account automatically. You can now view your updated balance in the Overview.</p>
                       <Button variant="outline" onClick={() => { setStatus('pending'); setShowConfirm(false); setTxHash(''); setAmount(''); }}>Make Another Deposit</Button>
                     </div>
                   ) : !showConfirm ? (
@@ -148,7 +147,7 @@ export default function Deposit() {
                       </div>
                       <div className="flex gap-3 pt-4">
                         <Button type="button" variant="outline" className="w-full" onClick={() => setShowConfirm(false)}>Back</Button>
-                        <Button type="submit" className="w-full">Submit for Review</Button>
+                        <Button type="submit" className="w-full">Confirm Deposit</Button>
                       </div>
                     </form>
                   )}

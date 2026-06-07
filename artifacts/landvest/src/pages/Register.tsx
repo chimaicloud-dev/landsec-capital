@@ -173,7 +173,7 @@ export default function Register() {
                     <Link href="/terms" className="text-primary hover:underline font-semibold">
                       Terms & Conditions
                     </Link>{' '}
-                    and Investment Risk Disclaimer
+                    and Privacy Policy
                   </label>
                 </div>
               </div>
