@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, useLocation } from 'wouter';
-import { Landmark, LayoutDashboard, TrendingUp, ArrowLeftRight, FileText, User, LifeBuoy, LogOut, Menu, Wallet, ShieldCheck } from 'lucide-react';
+import { Landmark, LayoutDashboard, TrendingUp, ArrowLeftRight, FileText, User, LifeBuoy, LogOut, Menu, Wallet, ShieldCheck, ArrowUpCircle } from 'lucide-react';
 import { useAuth } from '@/context/AuthContext';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
@@ -8,6 +8,7 @@ import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 
 const navItems = [
   { href: '/dashboard/deposit', label: 'Deposit Funds', icon: Wallet },
+  { href: '/dashboard/withdraw', label: 'Withdraw', icon: ArrowUpCircle },
   { href: '/dashboard', label: 'Overview', icon: LayoutDashboard },
   { href: '/dashboard/investments', label: 'My Investments', icon: TrendingUp },
   { href: '/dashboard/transactions', label: 'Transactions', icon: ArrowLeftRight },

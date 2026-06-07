@@ -18,6 +18,7 @@ import Profile from "@/pages/dashboard/Profile";
 import Support from "@/pages/dashboard/Support";
 import Deposit from "@/pages/dashboard/Deposit";
 import KYC from "@/pages/dashboard/KYC";
+import Withdraw from "@/pages/dashboard/Withdraw";
 import NotFound from "@/pages/not-found";
 
 import AdminLayout from "@/components/AdminLayout";
@@ -81,6 +82,7 @@ function Router() {
       <ProtectedRoute path="/dashboard/support" component={Support} />
       <ProtectedRoute path="/dashboard/deposit" component={Deposit} />
       <ProtectedRoute path="/dashboard/kyc" component={KYC} />
+      <ProtectedRoute path="/dashboard/withdraw" component={Withdraw} />
 
       {/* Admin Panel */}
       <Route path="/admin">
