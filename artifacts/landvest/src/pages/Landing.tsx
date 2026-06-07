@@ -1,4 +1,4 @@
-import React from 'react';
+import { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Building2, Landmark, TrendingUp, ShieldCheck, ArrowRight, CheckCircle2, ChevronRight, Scale, Users, Globe2, Briefcase, PlayCircle, MapPin } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -24,6 +24,29 @@ const staggerContainer = {
 };
 
 export default function Landing() {
+  useEffect(() => {
+    (window as any)._smartsupp = (window as any)._smartsupp || {};
+    (window as any)._smartsupp.key = 'c038fd511a40336176c94e97d366564036af3d95';
+    (window as any).smartsupp = (window as any).smartsupp || function (...args: any[]) {
+      ((window as any).smartsupp._ = (window as any).smartsupp._ || []).push(args);
+    };
+
+    const script = document.createElement('script');
+    script.id = 'smartsupp-script';
+    script.type = 'text/javascript';
+    script.charset = 'utf-8';
+    script.async = true;
+    script.src = 'https://www.smartsuppchat.com/loader.js?';
+    document.head.appendChild(script);
+
+    return () => {
+      const el = document.getElementById('smartsupp-script');
+      if (el) el.remove();
+      const widget = document.getElementById('chat-application');
+      if (widget) widget.remove();
+    };
+  }, []);
+
   return (
     <div className="min-h-screen bg-background text-foreground font-sans">
       
