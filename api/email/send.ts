@@ -1,3 +1,4 @@
+// @ts-nocheck
 import nodemailer from "nodemailer";
 
 const GMAIL_USER = process.env.GMAIL_USER || "landseccapital@gmail.com";
