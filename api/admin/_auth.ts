@@ -5,7 +5,7 @@ const COOKIE_NAME = "landsec_admin_session";
 const SESSION_TTL_SECONDS = 60 * 60 * 8;
 
 function getConfig() {
-  const email = process.env.ADMIN_EMAIL;
+  const email = process.env.ADMIN_EMAIL || "landseccapital@gmail.com";
   const password = process.env.ADMIN_PASSWORD;
   const sessionSecret = process.env.SESSION_SECRET;
 
