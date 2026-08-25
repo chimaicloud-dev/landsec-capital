@@ -1,6 +1,6 @@
 kind = "web"
 previewPath = "/"
-title = "LandVest — Real Estate Investment"
+title = "Landsec Capital — Real Estate Investment"
 version = "1.0.0"
 id = "artifacts/landvest"
 router = "path"
