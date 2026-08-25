@@ -48,11 +48,15 @@ export default function AdminSettings() {
     }
   };
 
-  const handleVerifyPassOTP = () => {
+  const handleVerifyPassOTP = async () => {
     if (passOtp === passOtpSent || passOtp === '000000') {
-      changeAdminPassword(newPass);
-      setPassPhase('otp_verified');
-      toast({ title: 'Password Changed', description: 'Admin password has been updated successfully.' });
+      const changed = await changeAdminPassword(newPass);
+      if (changed) {
+        setPassPhase('otp_verified');
+        toast({ title: 'Password Changed', description: 'Admin password has been updated successfully.' });
+      } else {
+        toast({ title: 'Update deployment secret', description: 'Change ADMIN_PASSWORD in Vercel, then redeploy the application.', variant: 'destructive' });
+      }
     } else {
       toast({ title: 'Invalid Code', description: 'The verification code does not match.', variant: 'destructive' });
     }

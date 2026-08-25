@@ -47,8 +47,9 @@ function ProtectedRoute({ component: Component, path }: { component: any; path: 
 }
 
 function AdminRoute({ component: Component, path }: { component: any; path: string }) {
-  const { isAdminAuthenticated } = useAdmin();
+  const { isAdminAuthenticated, isAdminLoading } = useAdmin();
   const [, setLocation] = useLocation();
+  if (isAdminLoading) return null;
   if (!isAdminAuthenticated) { setLocation("/admin"); return null; }
   return (
     <Route path={path}>

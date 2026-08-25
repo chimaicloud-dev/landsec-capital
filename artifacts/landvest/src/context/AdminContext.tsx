@@ -1,8 +1,5 @@
 import { createContext, useContext, useState, useEffect } from 'react';
 
-const ADMIN_EMAIL = 'landseccapital@gmail.com';
-const ADMIN_PASS = 'landsec@2025@admin';
-const STORAGE_KEY = 'landsec_admin_session';
 const ADMINS_KEY = 'landsec_admins';
 
 export interface AdminUser {
@@ -44,7 +41,8 @@ export interface PendingKYC {
 interface AdminContextType {
   admin: AdminUser | null;
   isAdminAuthenticated: boolean;
-  adminLogin: (email: string, pass: string) => boolean;
+  isAdminLoading: boolean;
+  adminLogin: (email: string, pass: string) => Promise<boolean>;
   adminLogout: () => void;
   deposits: PendingDeposit[];
   withdrawals: PendingWithdrawal[];
@@ -57,7 +55,7 @@ interface AdminContextType {
   rejectKYC: (id: string, reason: string) => void;
   admins: AdminUser[];
   addAdmin: (email: string, name: string) => void;
-  changeAdminPassword: (newPass: string) => void;
+  changeAdminPassword: (newPass: string) => Promise<boolean>;
   paymentDetails: PaymentDetails;
   updatePaymentDetails: (d: PaymentDetails) => void;
   homepageContent: HomepageContent;
@@ -129,38 +127,47 @@ const AdminContext = createContext<AdminContextType | null>(null);
 
 export function AdminProvider({ children }: { children: React.ReactNode }) {
   const [admin, setAdmin] = useState<AdminUser | null>(null);
+  const [isAdminLoading, setIsAdminLoading] = useState(true);
   const [deposits, setDeposits] = useState<PendingDeposit[]>(seedDeposits);
   const [withdrawals, setWithdrawals] = useState<PendingWithdrawal[]>(seedWithdrawals);
   const [kycRequests, setKycRequests] = useState<PendingKYC[]>(seedKYC);
-  const [admins, setAdmins] = useState<AdminUser[]>([{ email: ADMIN_EMAIL, name: 'Super Admin', role: 'super' }]);
+  const [admins, setAdmins] = useState<AdminUser[]>([]);
   const [paymentDetails, setPaymentDetails] = useState<PaymentDetails>(defaultPayment);
   const [homepageContent, setHomepageContent] = useState<HomepageContent>(defaultHomepage);
 
   useEffect(() => {
-    const stored = localStorage.getItem(STORAGE_KEY);
-    if (stored) setAdmin(JSON.parse(stored));
     const storedAdmins = localStorage.getItem(ADMINS_KEY);
     if (storedAdmins) setAdmins(JSON.parse(storedAdmins));
     const pd = localStorage.getItem('landsec_payment_details');
     if (pd) setPaymentDetails(JSON.parse(pd));
     const hp = localStorage.getItem('landsec_homepage_content');
     if (hp) setHomepageContent(JSON.parse(hp));
+    fetch('/api/admin/session', { credentials: 'include' })
+      .then((response) => response.ok ? response.json() : null)
+      .then((data) => { if (data?.admin) setAdmin(data.admin); })
+      .catch(() => {})
+      .finally(() => setIsAdminLoading(false));
   }, []);
 
-  const adminLogin = (email: string, pass: string) => {
-    const allAdmins: AdminUser[] = JSON.parse(localStorage.getItem(ADMINS_KEY) || JSON.stringify([{ email: ADMIN_EMAIL, name: 'Super Admin', role: 'super' }]));
-    const storedPass = localStorage.getItem('landsec_admin_pass') || ADMIN_PASS;
-    const found = allAdmins.find((a) => a.email === email);
-    if (found && pass === storedPass) {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(found));
-      setAdmin(found);
+  const adminLogin = async (email: string, pass: string) => {
+    try {
+      const response = await fetch('/api/admin/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+        body: JSON.stringify({ email, password: pass }),
+      });
+      if (!response.ok) return false;
+      const data = await response.json();
+      setAdmin(data.admin);
       return true;
+    } catch {
+      return false;
     }
-    return false;
   };
 
   const adminLogout = () => {
-    localStorage.removeItem(STORAGE_KEY);
+    void fetch('/api/admin/logout', { method: 'POST', credentials: 'include' });
     setAdmin(null);
   };
 
@@ -178,8 +185,14 @@ export function AdminProvider({ children }: { children: React.ReactNode }) {
     localStorage.setItem(ADMINS_KEY, JSON.stringify(updated));
   };
 
-  const changeAdminPassword = (newPass: string) => {
-    localStorage.setItem('landsec_admin_pass', newPass);
+  const changeAdminPassword = async (newPass: string) => {
+    const response = await fetch('/api/admin/password', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      credentials: 'include',
+      body: JSON.stringify({ password: newPass }),
+    });
+    return response.ok;
   };
 
   const updatePaymentDetails = (d: PaymentDetails) => {
@@ -194,7 +207,7 @@ export function AdminProvider({ children }: { children: React.ReactNode }) {
 
   return (
     <AdminContext.Provider value={{
-      admin, isAdminAuthenticated: !!admin,
+      admin, isAdminAuthenticated: !!admin, isAdminLoading,
       adminLogin, adminLogout,
       deposits, withdrawals, kycRequests,
       approveDeposit, rejectDeposit,

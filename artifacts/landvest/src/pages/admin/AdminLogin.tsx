@@ -14,10 +14,10 @@ export default function AdminLogin() {
   const { adminLogin } = useAdmin();
   const [, setLocation] = useLocation();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
-    const ok = adminLogin(email, pass);
+    const ok = await adminLogin(email, pass);
     if (ok) {
       setLocation('/admin/dashboard');
     } else {
