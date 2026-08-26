@@ -16,16 +16,18 @@ export default function Login() {
   const [, setLocation] = useLocation();
   const { toast } = useToast();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!email || !password) {
       toast({ title: 'Error', description: 'Please fill in all fields', variant: 'destructive' });
       return;
     }
-    const success = login(email, password);
+    const success = await login(email, password);
     if (success) {
       toast({ title: 'Success', description: 'Welcome back to Landsec Capital' });
       setLocation('/dashboard');
+    } else {
+      toast({ title: 'Sign in failed', description: 'The email or password is incorrect.', variant: 'destructive' });
     }
   };
 
@@ -55,6 +57,7 @@ export default function Login() {
                 <Input 
                   id="email" 
                   type="email" 
+                   autoComplete="email"
                   placeholder="" 
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
@@ -72,6 +75,7 @@ export default function Login() {
                   <Input 
                     id="password" 
                     type={showPassword ? "text" : "password"} 
+                    autoComplete="current-password"
                     placeholder=""
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}

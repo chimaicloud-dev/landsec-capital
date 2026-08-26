@@ -61,7 +61,7 @@ export default function Register() {
     setDialCode(found?.dial || '');
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!name || !email || !country || !phone || !password || !confirmPassword) {
       toast({ title: 'Error', description: 'Please fill in all fields', variant: 'destructive' });
@@ -75,7 +75,11 @@ export default function Register() {
       toast({ title: 'Error', description: 'You must agree to the Terms & Conditions', variant: 'destructive' });
       return;
     }
-    register(name, email, password);
+    const created = await register(name, email, password);
+    if (!created) {
+      toast({ title: 'Account already exists', description: 'Use the sign-in page or a different email address.', variant: 'destructive' });
+      return;
+    }
     toast({ title: 'Account Created', description: 'Welcome to Landsec Capital' });
     setLocation('/dashboard');
   };

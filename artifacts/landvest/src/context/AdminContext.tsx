@@ -159,6 +159,7 @@ export function AdminProvider({ children }: { children: React.ReactNode }) {
       });
       if (!response.ok) return false;
       const data = await response.json();
+      if (!data?.admin?.email) return false;
       setAdmin(data.admin);
       return true;
     } catch {

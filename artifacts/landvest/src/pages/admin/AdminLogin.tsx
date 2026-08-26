@@ -47,6 +47,7 @@ export default function AdminLogin() {
               <Label className="text-slate-300 text-sm">Admin Email</Label>
               <Input
                 type="email"
+                autoComplete="username"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 className="bg-slate-800 border-slate-600 text-white placeholder:text-slate-500 focus:border-blue-500"
@@ -59,6 +60,7 @@ export default function AdminLogin() {
               <div className="relative">
                 <Input
                   type={show ? 'text' : 'password'}
+                   autoComplete="current-password"
                   value={pass}
                   onChange={(e) => setPass(e.target.value)}
                   className="bg-slate-800 border-slate-600 text-white placeholder:text-slate-500 focus:border-blue-500 pr-10"
