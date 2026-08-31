@@ -19,7 +19,7 @@ interface AuthContextType {
   user: User | null;
   isAuthenticated: boolean;
   login: (email: string, pass: string) => Promise<boolean>;
-  register: (name: string, email: string, pass: string, plan?: string) => Promise<boolean>;
+  register: (name: string, email: string, pass: string, plan?: string, country?: string, phone?: string) => Promise<boolean>;
   logout: () => void;
   updateUser: (u: Partial<User>) => void;
   withdrawProfit: (amount: number) => boolean;
@@ -46,18 +46,6 @@ const PLAN_TERM_DAYS: Record<string, number> = {
 };
 
 const MS_24H = 24 * 60 * 60 * 1000;
-const USERS_KEY = 'landsec_users';
-const SESSION_KEY = 'landsec_user_session';
-
-interface StoredUser extends User {
-  passwordHash: string;
-}
-
-async function hashPassword(password: string): Promise<string> {
-  const digest = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(password));
-  return Array.from(new Uint8Array(digest)).map((byte) => byte.toString(16).padStart(2, '0')).join('');
-}
-
 function makeMaturityDate(startIso: string, plan: string): string {
   const termDays = PLAN_TERM_DAYS[plan] ?? 365;
   const start = new Date(startIso);
@@ -71,14 +59,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
-  const saveUser = (u: User) => {
-    const users: StoredUser[] = JSON.parse(localStorage.getItem(USERS_KEY) || '[]');
-    const index = users.findIndex((candidate) => candidate.id === u.id);
-    if (index >= 0) users[index] = { ...users[index], ...u };
-    localStorage.setItem(USERS_KEY, JSON.stringify(users));
-    localStorage.setItem(SESSION_KEY, u.id);
-    setUser(u);
-  };
+  const saveUser = (u: User) => setUser(u);
 
   const applyProfit = (u: User): User => {
     const now = Date.now();
@@ -109,90 +90,61 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   };
 
   useEffect(() => {
-    const sessionId = localStorage.getItem(SESSION_KEY);
-    const users: StoredUser[] = JSON.parse(localStorage.getItem(USERS_KEY) || '[]');
-    const stored = users.find((candidate) => candidate.id === sessionId);
-    if (stored) {
-      let u: User = stored;
-      // Migrate old user objects that lack new fields
-      let migrated = false;
-      if (!u.withdrawableProfit) { u = { ...u, withdrawableProfit: (u as any).balance || 0 }; migrated = true; }
-      if (!u.totalReturns) { u = { ...u, totalReturns: (u as any).balance || 0 }; migrated = true; }
-      if (!u.investmentStartDate) { u = { ...u, investmentStartDate: u.joinDate || new Date().toISOString() }; migrated = true; }
-      if (!u.maturityDate) { u = { ...u, maturityDate: makeMaturityDate(u.investmentStartDate, u.plan) }; migrated = true; }
-      if (!u.lastProfitAt) { u = { ...u, lastProfitAt: Date.now() }; migrated = true; }
-      if (migrated) {
-        const index = users.findIndex((candidate) => candidate.id === u.id);
-        if (index >= 0) {
-          users[index] = { ...users[index], ...u };
-          localStorage.setItem(USERS_KEY, JSON.stringify(users));
-        }
-      }
-
-      const withProfit = applyProfit(u);
-      if (withProfit !== u) saveUser(withProfit);
-      else setUser(u);
-    }
+    fetch('/api/user/session', { credentials: 'include' })
+      .then((response) => response.ok ? response.json() : null)
+      .then((data) => { if (data?.user) setUser(data.user); })
+      .catch(() => {});
   }, []);
 
   useEffect(() => {
     if (!user) return;
     timerRef.current = setInterval(() => {
-      const sessionId = localStorage.getItem(SESSION_KEY);
-      const users: StoredUser[] = JSON.parse(localStorage.getItem(USERS_KEY) || '[]');
-      const stored = users.find((candidate) => candidate.id === sessionId);
-      if (!stored) return;
-      const u: User = stored;
-      const updated = applyProfit(u);
-      if (updated !== u) saveUser(updated);
+      const updated = applyProfit(user);
+      if (updated !== user) setUser(updated);
     }, 60 * 1000);
     return () => { if (timerRef.current) clearInterval(timerRef.current); };
   }, [user?.id]);
 
   const login = async (email: string, pass: string) => {
-    const users: StoredUser[] = JSON.parse(localStorage.getItem(USERS_KEY) || '[]');
-    const candidate = users.find((storedUser) => storedUser.email.toLowerCase() === email.trim().toLowerCase());
-    if (!candidate || !candidate.passwordHash || candidate.passwordHash !== await hashPassword(pass)) {
+    try {
+      const response = await fetch('/api/user/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+        body: JSON.stringify({ email, password: pass }),
+      });
+      if (!response.ok) return false;
+      const data = await response.json();
+      if (!data?.user) return false;
+      setUser(data.user);
+      return true;
+    } catch {
       return false;
     }
-    const withProfit = applyProfit(candidate);
-    if (withProfit !== candidate) saveUser(withProfit);
-    else {
-      localStorage.setItem(SESSION_KEY, candidate.id);
-      setUser(candidate);
-    }
-    return true;
   };
 
-  const register = async (name: string, email: string, pass: string, plan = 'Foundation Plan') => {
-    const users: StoredUser[] = JSON.parse(localStorage.getItem(USERS_KEY) || '[]');
-    const normalizedEmail = email.trim().toLowerCase();
-    if (users.some((candidate) => candidate.email.toLowerCase() === normalizedEmail)) return false;
-    const now = new Date().toISOString();
-    const newUser: User = {
-      id: Math.random().toString(36).substring(7),
-      name,
-      email,
-      plan,
-      investedAmount: 5000,
-      withdrawableProfit: 0,
-      totalReturns: 0,
-      investmentStartDate: now,
-      maturityDate: makeMaturityDate(now, plan),
-      joinDate: now,
-      lastProfitAt: Date.now(),
-    };
-    users.push({ ...newUser, email: normalizedEmail, passwordHash: await hashPassword(pass) });
-    localStorage.setItem(USERS_KEY, JSON.stringify(users));
-    localStorage.setItem(SESSION_KEY, newUser.id);
-    setUser({ ...newUser, email: normalizedEmail });
-    sendEmail(email, 'welcome', { name, email, plan });
-    return true;
+  const register = async (name: string, email: string, pass: string, plan = 'Foundation Plan', country = '', phone = '') => {
+    try {
+      const response = await fetch('/api/user/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+        body: JSON.stringify({ name, email, password: pass, plan, country, phone }),
+      });
+      if (!response.ok) return false;
+      const data = await response.json();
+      if (!data?.user) return false;
+      setUser(data.user);
+      sendEmail(email, 'welcome', { name, email, plan });
+      return true;
+    } catch {
+      return false;
+    }
   };
 
   const logout = () => {
     if (timerRef.current) clearInterval(timerRef.current);
-    localStorage.removeItem(SESSION_KEY);
+    void fetch('/api/user/logout', { method: 'POST', credentials: 'include' });
     setUser(null);
   };
 

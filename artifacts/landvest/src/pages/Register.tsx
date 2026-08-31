@@ -75,7 +75,7 @@ export default function Register() {
       toast({ title: 'Error', description: 'You must agree to the Terms & Conditions', variant: 'destructive' });
       return;
     }
-    const created = await register(name, email, password);
+    const created = await register(name, email, password, 'Foundation Plan', country, `${dialCode} ${phone}`.trim());
     if (!created) {
       toast({ title: 'Account already exists', description: 'Use the sign-in page or a different email address.', variant: 'destructive' });
       return;

@@ -23,7 +23,7 @@ Vercel will:
 - Run `pnpm install`
 - Run `pnpm build:frontend` (Vite build)
 - Serve `artifacts/landvest/dist/public` as the static site
-- Deploy `api/email/send.ts` and `api/email/send-otp.ts` as serverless functions
+- Deploy the files in `api/` as serverless functions
 
 ### Step 3 — Set Environment Variables
 
@@ -34,7 +34,10 @@ In your Vercel project dashboard → **Settings → Environment Variables**, add
 | `GMAIL_USER` | Yes | Gmail address for sending emails (`landseccapital@gmail.com`) |
 | `GMAIL_APP_PASSWORD` | Yes | 16-character Gmail App Password (not your account password) |
 | `SECURITY_EMAIL` | Yes | Email that receives admin OTP security codes |
-| `SESSION_SECRET` | Optional | Random secret for session signing |
+| `ADMIN_EMAIL` | Yes | Admin login email |
+| `ADMIN_PASSWORD` | Yes | Admin login password |
+| `SESSION_SECRET` | Yes | Random secret for session signing |
+| `DATABASE_URL` | Yes | PostgreSQL connection string for user accounts |
 
 > **Getting a Gmail App Password:**
 > 1. Enable 2-Step Verification on your Gmail account
@@ -73,9 +76,10 @@ artifacts/
     dist/public/          ← Build output (served by Vercel)
   api-server/             ← Express API (used for local dev only)
 api/
-  email/send.ts           ← Vercel serverless: POST /api/email/send
-  email/send-otp.ts       ← Vercel serverless: POST /api/email/send-otp
-  healthz.ts              ← Vercel serverless: GET /api/healthz
+  user/                    ← Vercel serverless user auth endpoints
+  admin/                   ← Vercel serverless admin auth endpoints
+  email/                   ← Vercel serverless email endpoints
+  healthz.ts               ← Vercel serverless: GET /api/healthz
 ```
 
 ---
@@ -90,6 +94,6 @@ api/
 
 ## Notes
 
-- All user authentication is client-side (localStorage) — no database required
+- User registration and authentication use PostgreSQL, scrypt password hashes, and HTTP-only signed cookies
 - Emails are sent via Gmail SMTP through the serverless API functions
-- If `GMAIL_APP_PASSWORD` is not set, email sends are silently simulated (no crash)
+- The Replit development database is provisioned already; Vercel needs its own hosted PostgreSQL `DATABASE_URL`
