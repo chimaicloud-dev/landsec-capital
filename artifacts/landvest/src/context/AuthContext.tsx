@@ -18,13 +18,19 @@ export interface User {
 interface AuthContextType {
   user: User | null;
   isAuthenticated: boolean;
-  login: (email: string, pass: string) => Promise<boolean>;
-  register: (name: string, email: string, pass: string, plan?: string, country?: string, phone?: string) => Promise<boolean>;
+  login: (email: string, pass: string) => Promise<AuthResult>;
+  register: (name: string, email: string, pass: string, plan?: string, country?: string, phone?: string) => Promise<AuthResult>;
   logout: () => void;
   updateUser: (u: Partial<User>) => void;
   withdrawProfit: (amount: number) => boolean;
   isCapitalMatured: () => boolean;
   daysToMaturity: () => number;
+}
+
+export interface AuthResult {
+  ok: boolean;
+  error?: string;
+  status?: number;
 }
 
 const PLAN_DAILY_RATE: Record<string, number> = {
@@ -113,13 +119,13 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         credentials: 'include',
         body: JSON.stringify({ email, password: pass }),
       });
-      if (!response.ok) return false;
-      const data = await response.json();
-      if (!data?.user) return false;
+      const data = await response.json().catch(() => ({}));
+      if (!response.ok) return { ok: false, error: data?.error, status: response.status };
+      if (!data?.user) return { ok: false, error: 'The server returned an invalid response.' };
       setUser(data.user);
-      return true;
+      return { ok: true };
     } catch {
-      return false;
+      return { ok: false, error: 'Unable to reach the authentication server.' };
     }
   };
 
@@ -131,14 +137,14 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         credentials: 'include',
         body: JSON.stringify({ name, email, password: pass, plan, country, phone }),
       });
-      if (!response.ok) return false;
-      const data = await response.json();
-      if (!data?.user) return false;
+      const data = await response.json().catch(() => ({}));
+      if (!response.ok) return { ok: false, error: data?.error, status: response.status };
+      if (!data?.user) return { ok: false, error: 'The server returned an invalid response.' };
       setUser(data.user);
       sendEmail(email, 'welcome', { name, email, plan });
-      return true;
+      return { ok: true };
     } catch {
-      return false;
+      return { ok: false, error: 'Unable to reach the authentication server.' };
     }
   };
 

@@ -22,12 +22,12 @@ export default function Login() {
       toast({ title: 'Error', description: 'Please fill in all fields', variant: 'destructive' });
       return;
     }
-    const success = await login(email, password);
-    if (success) {
+    const result = await login(email, password);
+    if (result.ok) {
       toast({ title: 'Success', description: 'Welcome back to Landsec Capital' });
       setLocation('/dashboard');
     } else {
-      toast({ title: 'Sign in failed', description: 'The email or password is incorrect.', variant: 'destructive' });
+      toast({ title: 'Sign in failed', description: result.error || 'The email or password is incorrect.', variant: 'destructive' });
     }
   };
 

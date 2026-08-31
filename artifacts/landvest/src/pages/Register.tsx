@@ -71,13 +71,17 @@ export default function Register() {
       toast({ title: 'Error', description: 'Passwords do not match', variant: 'destructive' });
       return;
     }
+    if (password.length < 8) {
+      toast({ title: 'Error', description: 'Password must be at least 8 characters', variant: 'destructive' });
+      return;
+    }
     if (!agreed) {
       toast({ title: 'Error', description: 'You must agree to the Terms & Conditions', variant: 'destructive' });
       return;
     }
-    const created = await register(name, email, password, 'Foundation Plan', country, `${dialCode} ${phone}`.trim());
-    if (!created) {
-      toast({ title: 'Account already exists', description: 'Use the sign-in page or a different email address.', variant: 'destructive' });
+    const result = await register(name, email, password, 'Foundation Plan', country, `${dialCode} ${phone}`.trim());
+    if (!result.ok) {
+      toast({ title: 'Account could not be created', description: result.error || 'Please try again.', variant: 'destructive' });
       return;
     }
     toast({ title: 'Account Created', description: 'Welcome to Landsec Capital' });
